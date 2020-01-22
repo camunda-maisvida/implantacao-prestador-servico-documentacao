@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="_2019120904182" targetNamespace="http://www.bizagi.com/definitions/_2019120904182" exporter="Camunda Modeler" exporterVersion="3.3.5">
-  <process id="Id_c480572e-884b-42b7-b258-a7349a980e8a" isExecutable="true" camunda:versionTag="1.3.12">
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="_2019120904182" targetNamespace="http://www.bizagi.com/definitions/_2019120904182" exporter="Camunda Modeler" exporterVersion="3.4.1">
+  <process id="ImplantacaoPrestadorServicoProcess" name="Implantação do Prestador de Serviço" isExecutable="true" camunda:versionTag="1.0.0">
     <documentation />
     <laneSet id="Id_de4a6e3e-79ba-44ed-96bf-b952495bbb48">
       <lane id="Lane_0kkomgj" name="Prestador Solicitante">
@@ -53,11 +53,11 @@
       <outgoing>SequenceFlow_1e93i4r</outgoing>
       <outgoing>SequenceFlow_0rsbc15</outgoing>
     </exclusiveGateway>
-    <startEvent id="Id_543a2786-0770-4ed3-bf58-125fc0f96b13" name="Registrar Solicitação">
+    <startEvent id="Id_543a2786-0770-4ed3-bf58-125fc0f96b13" name="Registrar Solicitação" camunda:formKey="embedded:/implantacao-prestador-servico/v1/registrar-solicitacao.html">
       <documentation />
       <outgoing>Id_d63e7cf5-0af4-4cbc-bebe-660f455d4976</outgoing>
     </startEvent>
-    <sendTask id="Task_05olcp0" name="Notificar Rejeição">
+    <sendTask id="Task_05olcp0" name="Notificar Rejeição" camunda:type="external" camunda:topic="teste">
       <incoming>SequenceFlow_0rsbc15</incoming>
       <outgoing>SequenceFlow_0pu6ypo</outgoing>
     </sendTask>
@@ -127,7 +127,7 @@
           </bizagi:BizagiProperties>
         </bizagi:BizagiExtensions>
       </extensionElements>
-      <conditionExpression id="Expression_5bb87237-4f9b-4f8a-aaf2-1f14b302c32e" />
+      <conditionExpression xsi:type="tFormalExpression">${analise} == 1</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="Id_3d67157d-071f-4e72-85fe-e1b418396f46" sourceRef="Id_e50fb40b-cfab-49e7-93e8-8845cd31d2bc" targetRef="Id_c7fb62cd-0e66-4729-9378-9a6369791044">
       <documentation />
@@ -151,9 +151,13 @@
         </bizagi:BizagiExtensions>
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="SequenceFlow_1e93i4r" name="Necessita de ajustes" sourceRef="Id_c7fb62cd-0e66-4729-9378-9a6369791044" targetRef="Task_027b5h2" />
+    <sequenceFlow id="SequenceFlow_1e93i4r" name="Necessita de ajustes" sourceRef="Id_c7fb62cd-0e66-4729-9378-9a6369791044" targetRef="Task_027b5h2">
+      <conditionExpression xsi:type="tFormalExpression">${analise} == 3</conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="SequenceFlow_1iicx2q" sourceRef="Task_027b5h2" targetRef="Id_e50fb40b-cfab-49e7-93e8-8845cd31d2bc" />
-    <sequenceFlow id="SequenceFlow_0rsbc15" name="Rejeitado" sourceRef="Id_c7fb62cd-0e66-4729-9378-9a6369791044" targetRef="Task_05olcp0" />
+    <sequenceFlow id="SequenceFlow_0rsbc15" name="Rejeitado" sourceRef="Id_c7fb62cd-0e66-4729-9378-9a6369791044" targetRef="Task_05olcp0">
+      <conditionExpression xsi:type="tFormalExpression">${analise} == 2</conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="SequenceFlow_0pu6ypo" sourceRef="Task_05olcp0" targetRef="EndEvent_0plpqnr" />
     <sequenceFlow id="SequenceFlow_0kopjf9" sourceRef="Id_facdf1b1-c75c-4d70-89b2-3321921e483e" targetRef="Task_0glz3h9" />
     <sequenceFlow id="Id_1c9e3c7e-9c65-4250-97c0-9946e1257f7a" sourceRef="Id_9a0fa9e4-243a-4fc0-8c46-5d310bc280da" targetRef="Id_a6218d9a-ee07-4ca8-a0ba-f8cb560597ce">
@@ -168,11 +172,15 @@
       </extensionElements>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_099rj31" sourceRef="Task_0glz3h9" targetRef="ExclusiveGateway_0ezd5qn" />
-    <sequenceFlow id="SequenceFlow_1jnt1er" name="Solicita Ajustes" sourceRef="ExclusiveGateway_0ezd5qn" targetRef="IntermediateThrowEvent_0v1fqvq" />
+    <sequenceFlow id="SequenceFlow_1jnt1er" name="Solicita Ajustes" sourceRef="ExclusiveGateway_0ezd5qn" targetRef="IntermediateThrowEvent_0v1fqvq">
+      <conditionExpression xsi:type="tFormalExpression">${analise} == 1</conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="SequenceFlow_19kyrj9" sourceRef="IntermediateThrowEvent_0lij7kf" targetRef="Id_e50fb40b-cfab-49e7-93e8-8845cd31d2bc" />
-    <sequenceFlow id="SequenceFlow_151gn8t" name="Contrto OK" sourceRef="ExclusiveGateway_0ezd5qn" targetRef="Task_06dbnrw" />
+    <sequenceFlow id="SequenceFlow_151gn8t" name="Contrto OK" sourceRef="ExclusiveGateway_0ezd5qn" targetRef="Task_06dbnrw">
+      <conditionExpression xsi:type="tFormalExpression">${analise} == 2</conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="SequenceFlow_0teeth8" sourceRef="Task_06dbnrw" targetRef="Id_9a0fa9e4-243a-4fc0-8c46-5d310bc280da" />
-    <serviceTask id="Task_06dbnrw" name="Assinar Contrato">
+    <serviceTask id="Task_06dbnrw" name="Assinar Contrato" camunda:type="external" camunda:topic="teste">
       <incoming>SequenceFlow_151gn8t</incoming>
       <outgoing>SequenceFlow_0teeth8</outgoing>
     </serviceTask>
@@ -185,9 +193,9 @@
       <outgoing>SequenceFlow_1iicx2q</outgoing>
     </userTask>
   </process>
-  <collaboration id="Id_96949b74-75df-44a8-87e9-c3514f8d80a5" name="Implantação do Prestador de Serviço">
+  <collaboration id="ImplantacaoPrestadorServico" name="Implantação do Prestador de Serviço">
     <documentation />
-    <participant id="Id_e47cf39d-eb59-428b-84aa-0ac4f4e5e19b" name="Implantação do Prestador de Serviço" processRef="Id_c480572e-884b-42b7-b258-a7349a980e8a">
+    <participant id="ImplantacaoPrestadorServicoID" name="Implantação do Prestador de Serviço" processRef="ImplantacaoPrestadorServicoProcess">
       <documentation />
       <extensionElements>
         <bizagi:BizagiExtensions xmlns:bizagi="http://www.bizagi.com/bpmn20">
@@ -200,11 +208,11 @@
     </participant>
   </collaboration>
   <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Diagram_328ed5c7-eecf-434a-8612-8e3a15b7fa5c">
-    <BPMNPlane id="DiagramElement_cb293027-2cc8-4e02-940d-f6ba718e8bcf" bpmnElement="Id_96949b74-75df-44a8-87e9-c3514f8d80a5">
+    <BPMNPlane id="DiagramElement_cb293027-2cc8-4e02-940d-f6ba718e8bcf" bpmnElement="ImplantacaoPrestadorServico">
       <di:extension />
-      <BPMNShape id="DiagramElement_a05e5326-93e0-4c51-8262-61348bdb1760" bpmnElement="Id_e47cf39d-eb59-428b-84aa-0ac4f4e5e19b" isHorizontal="true">
+      <BPMNShape id="DiagramElement_a05e5326-93e0-4c51-8262-61348bdb1760" bpmnElement="ImplantacaoPrestadorServicoID" isHorizontal="true">
         <di:extension />
-        <dc:Bounds x="155" y="81" width="1592" height="560" />
+        <dc:Bounds x="155" y="81" width="1475" height="558" />
         <BPMNLabel id="DiagramElement_c43c6908-cfd6-4685-91bb-9edd499e6ec1" labelStyle="Style_a930e477-13eb-4adf-857d-e6601d42fb2e">
           <di:extension />
           <dc:Bounds x="0" y="0" width="0" height="0" />
@@ -267,20 +275,6 @@
         <di:waypoint x="1375" y="530" />
         <di:waypoint x="1415" y="530" />
       </BPMNEdge>
-      <BPMNShape id="DiagramElement_0367e0fb-069e-4990-ae42-b458413fd13a">
-        <di:extension />
-        <dc:Bounds x="186" y="331" width="40" height="50" />
-        <BPMNLabel id="DiagramElement_de16c497-b136-4fd6-a520-2be7c661a56d" labelStyle="Style_08749890-936b-48e7-bf55-d1aaac0881d9">
-          <di:extension />
-          <dc:Bounds x="0" y="0" width="0" height="0" />
-        </BPMNLabel>
-      </BPMNShape>
-      <BPMNEdge id="DiagramElement_56201c7f-421d-43d9-9bbb-c6a683d38e0a">
-        <di:extension />
-        <di:waypoint x="226" y="356" />
-        <di:waypoint x="264" y="356" />
-        <di:waypoint x="264" y="407" />
-      </BPMNEdge>
       <BPMNShape id="StartEvent_0pmaekt_di" bpmnElement="Id_543a2786-0770-4ed3-bf58-125fc0f96b13">
         <dc:Bounds x="285" y="143" width="36" height="36" />
         <BPMNLabel>
@@ -324,10 +318,10 @@
         <di:waypoint x="890" y="171" />
       </BPMNEdge>
       <BPMNShape id="Lane_0kkomgj_di" bpmnElement="Lane_0kkomgj" isHorizontal="true">
-        <dc:Bounds x="185" y="81" width="1562" height="280" />
+        <dc:Bounds x="185" y="81" width="1445" height="280" />
       </BPMNShape>
       <BPMNShape id="Lane_134x69n_di" bpmnElement="Lane_134x69n" isHorizontal="true">
-        <dc:Bounds x="185" y="361" width="1562" height="280" />
+        <dc:Bounds x="185" y="361" width="1445" height="278" />
       </BPMNShape>
       <BPMNShape id="ExclusiveGateway_0ezd5qn_di" bpmnElement="ExclusiveGateway_0ezd5qn" isMarkerVisible="true">
         <dc:Bounds x="1025" y="146" width="50" height="50" />
