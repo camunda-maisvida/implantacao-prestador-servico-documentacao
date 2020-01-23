@@ -22,7 +22,7 @@
         <flowNodeRef>Id_a6218d9a-ee07-4ca8-a0ba-f8cb560597ce</flowNodeRef>
       </lane>
     </laneSet>
-    <userTask id="Id_e50fb40b-cfab-49e7-93e8-8845cd31d2bc" name="Analisar Solicitação">
+    <userTask id="Id_e50fb40b-cfab-49e7-93e8-8845cd31d2bc" name="Analisar Solicitação" camunda:formKey="embedded:/implantacao-prestador-servico/v1/proposta-servico.html">
       <documentation />
       <extensionElements>
         <bizagi:BizagiExtensions xmlns:bizagi="http://www.bizagi.com/bpmn20">
