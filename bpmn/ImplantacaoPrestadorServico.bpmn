@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="_2019120904182" targetNamespace="http://www.bizagi.com/definitions/_2019120904182" exporter="Camunda Modeler" exporterVersion="3.4.1">
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="_2019120904182" targetNamespace="http://www.bizagi.com/definitions/_2019120904182" exporter="Camunda Modeler" exporterVersion="3.6.0">
   <process id="ImplantacaoPrestadorServicoProcess" name="Implantação do Prestador de Serviço" isExecutable="true" camunda:versionTag="1.0.0">
     <documentation />
     <laneSet id="Id_de4a6e3e-79ba-44ed-96bf-b952495bbb48">
@@ -57,7 +57,7 @@
       <extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8011/proxy/prestadores/rejeitar/</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8880/prestadores/rejeitar/</camunda:inputParameter>
             <camunda:inputParameter name="method">POST</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -68,8 +68,7 @@
             <camunda:inputParameter name="payload">{
     "cnpj": "${cnpj}",
    "motivo": "${motivoRejeicao}"
-}
-</camunda:inputParameter>
+}</camunda:inputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
@@ -220,10 +219,10 @@
       </extensionElements>
     </participant>
   </collaboration>
-  <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Diagram_328ed5c7-eecf-434a-8612-8e3a15b7fa5c">
+  <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Diagram_328ed5c7-eecf-434a-8612-8e3a15b7fa5c">
     <BPMNPlane id="DiagramElement_cb293027-2cc8-4e02-940d-f6ba718e8bcf" bpmnElement="ImplantacaoPrestadorServico">
       <di:extension />
-      <BPMNShape id="DiagramElement_a05e5326-93e0-4c51-8262-61348bdb1760" bpmnElement="ImplantacaoPrestadorServicoID" isHorizontal="true">
+      <BPMNShape id="DiagramElement_a05e5326-93e0-4c51-8262-61348bdb1760" bpmnElement="ImplantacaoPrestadorServicoID" isHorizontal="true" bioc:stroke="black" bioc:fill="white">
         <di:extension />
         <dc:Bounds x="157" y="80" width="1623" height="618" />
         <BPMNLabel id="DiagramElement_c43c6908-cfd6-4685-91bb-9edd499e6ec1" labelStyle="Style_a930e477-13eb-4adf-857d-e6601d42fb2e">
@@ -371,7 +370,7 @@
         <di:waypoint x="1660" y="520" />
         <di:waypoint x="1705" y="520" />
       </BPMNEdge>
-      <BPMNShape id="UserTask_11p9vlr_di" bpmnElement="Task_0ihe0ix">
+      <BPMNShape id="UserTask_11p9vlr_di" bpmnElement="Task_0ihe0ix" bioc:stroke="black" bioc:fill="white">
         <dc:Bounds x="410" y="210" width="100" height="80" />
       </BPMNShape>
       <BPMNShape id="UserTask_0d0v06s_di" bpmnElement="Task_027b5h2">
